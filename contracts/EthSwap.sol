@@ -17,6 +17,7 @@ contract EthSwap{
         token = _token;
     }
 
+
     function buyTokens() public payable{
         uint numberOfTokens = msg.value * rate;
 
@@ -37,7 +38,7 @@ contract EthSwap{
     function sellTokens(uint _amount) public {
         uint etherAmount = _amount / rate;
 
-        require(address(this).balance > etherAmount, "Insufficient balance to perform transaction");
+        require(address(this).balance >= etherAmount, "Insufficient balance to perform transaction");
 
         token.transferFrom(msg.sender, address(this), _amount);
         payable(msg.sender).transfer(etherAmount);
