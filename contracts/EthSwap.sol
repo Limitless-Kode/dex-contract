@@ -17,6 +17,14 @@ contract EthSwap{
         token = _token;
     }
 
+    modifier isOwner{
+        require(msg.sender == owner, "Insufficient permissions");
+        _;
+    }
+
+    function mint() public isOwner{
+        token.transfer(address(this), 10 ether);
+    }
 
     function buyTokens() public payable{
         uint numberOfTokens = msg.value * rate;
